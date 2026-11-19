@@ -1,7 +1,10 @@
 <script setup lang="ts">
+definePageMeta({ middleware: 'auth' })
 useSeoMeta({
   title: 'Мои вишлисты',
 })
+
+const { user } = useUserSession()
 </script>
 
 <template>
@@ -9,6 +12,9 @@ useSeoMeta({
     <h1 class="text-2xl font-semibold">
       Мои вишлисты
     </h1>
+    <p class="mt-1 text-muted">
+      Привет, {{ user?.name }}
+    </p>
     <UEmpty
       class="mt-8"
       icon="i-lucide-gift"
