@@ -48,10 +48,3 @@ async function logout() {
     </UContainer>
   </header>
 </template>
-
-        <!-- <UButton
-          to="/lists"
-          label="Мои вишлисты"
-          color="neutral"
-          variant="ghost"
-        /> -->
