@@ -5,6 +5,7 @@ definePageMeta({
 })
 
 const route = useRoute()
+const toast = useToast()
 
 const { data: wishlist, error } = await useFetch(`/api/wishlists/${route.params.id}`)
 
@@ -15,6 +16,22 @@ if (error.value) {
 useSeoMeta({
   title: () => wishlist.value?.title,
 })
+
+const deleteOpen = ref(false)
+const deleting = ref(false)
+
+async function deleteWishlist() {
+  deleting.value = true
+
+  try {
+    await $fetch(`/api/wishlists/${route.params.id}`, { method: 'DELETE' })
+    await navigateTo('/lists')
+  }
+  catch (error) {
+    const message = (error as { data?: { message?: string } }).data?.message
+    toast.add({ title: message ?? 'Не удалось удалить вишлист', color: 'error' })
+  }
+}
 </script>
 
 <template>
@@ -33,5 +50,33 @@ useSeoMeta({
     <h1 class="text-2xl font-semibold break-words">
       {{ wishlist.title }}
     </h1>
+    <UButton
+      icon="i-lucide-trash-2"
+      label="Удалить"
+      color="error"
+      variant="soft"
+      @click="deleteOpen = true"
+    />
+    <UModal
+      v-model:open="deleteOpen"
+      title="Удалить вишлист?"
+      description="Вишлист удалится насовсем"
+      :ui="{ footer: 'justify-end' }"
+    >
+      <template #footer>
+        <UButton
+          label="Отмена"
+          color="neutral"
+          variant="outline"
+          @click="deleteOpen = false"
+        />
+        <UButton
+          label="Удалить"
+          color="neutral"
+          :loading="deleting"
+          @click="deleteWishlist"
+        />
+      </template>
+    </UModal>
   </UContainer>
 </template>
