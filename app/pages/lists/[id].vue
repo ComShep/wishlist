@@ -1,5 +1,8 @@
 <script setup lang="ts">
-definePageMeta({ middleware: 'auth' })
+definePageMeta({
+  middleware: 'auth',
+  validate: route => /^\d+$/.test(String(route.params.id)),
+})
 
 const route = useRoute()
 
