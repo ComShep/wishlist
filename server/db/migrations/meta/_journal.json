@@ -15,6 +15,13 @@
       "when": 1795182816029,
       "tag": "0001_chief_demogoblin",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1795526296014,
+      "tag": "0002_furry_darwin",
+      "breakpoints": true
     }
   ]
 }

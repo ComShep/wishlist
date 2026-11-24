@@ -22,7 +22,7 @@ async function create() {
 </script>
 
 <template>
-  <UContainer>
+  <UContainer class="py-10">
     <h1 class="text-2xl font-semibold">
       Мои вишлисты
     </h1>
